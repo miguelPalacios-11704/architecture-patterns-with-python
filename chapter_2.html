@@ -8,7 +8,7 @@
 
 <meta name="author" content="Miguel de Jesús Palacios Rivera">
 
-<title>Introduction</title>
+<title>Chapter 2: Repository Pattern</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -27,55 +27,20 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="Introduction_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Introduction_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="Introduction_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="Introduction_files/libs/quarto-html/popper.min.js"></script>
-<script src="Introduction_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="Introduction_files/libs/quarto-html/anchor.min.js"></script>
-<link href="Introduction_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Introduction_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="Introduction_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="Introduction_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Introduction_files/libs/bootstrap/bootstrap-917079515d91bccb85b543faf8aa8bb6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="chapter_2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="chapter_2_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="chapter_2_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="chapter_2_files/libs/quarto-html/popper.min.js"></script>
+<script src="chapter_2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="chapter_2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="chapter_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="chapter_2_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="chapter_2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="chapter_2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="chapter_2_files/libs/bootstrap/bootstrap-917079515d91bccb85b543faf8aa8bb6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -88,7 +53,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction</h1>
+<h1 class="title">Chapter 2: Repository Pattern</h1>
 </div>
 
 
@@ -111,73 +76,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="why-do-our-designs-go-wrong" class="level2">
-<h2 class="anchored" data-anchor-id="why-do-our-designs-go-wrong">Why do our designs go wrong?</h2>
-<section id="chaos-and-order" class="level3">
-<h3 class="anchored" data-anchor-id="chaos-and-order">Chaos and order</h3>
-<p>In science, chaos is characterized by sameness and order is characterized by difference and complexity.</p>
+<p>The repository pattern is a simplifying abstraction over data storage that makes our system more testable by hiding the complexities of the database.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/chaos-and-order.jpg" class="img-fluid figure-img" width="300"></p>
-<figcaption>Chaos and order</figcaption>
+<p><img src="img/repo-pattern.png" class="img-fluid figure-img"></p>
+<figcaption>Before and after the repo pattern</figcaption>
 </figure>
 </div>
-<p>An analogy can be made with the gardens. If we don’t take care of our gardens, they will become chaotic and overgrown. It could be reestructured and organized, but it will take a lot of time and effort. If by originally we take care of our gardens, they will be orderly and beautiful. It will take less time and effort to maintain them.</p>
+<section id="persisting-our-domain-model" class="level2">
+<h2 class="anchored" data-anchor-id="persisting-our-domain-model">Persisting our domain model</h2>
+<p>To create a minimum viable product we need to add persistence to our software.</p>
 </section>
-<section id="encapsulation-and-abstraction" class="level3">
-<h3 class="anchored" data-anchor-id="encapsulation-and-abstraction">Encapsulation and abstraction</h3>
-<p>Encapsulation is interwoven with two ideas: simplifying behavior and hiding data. In this context, we are referring to the first idea. We need to rememeber that at the moment of coding this means to give tasks to a well-defined object or function.</p>
-<p>We have three differnt levels of abstraction in the following example:</p>
-<p>Urlib</p>
-<div id="546a9689" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib.request <span class="im">import</span> urlopen</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib.parse <span class="im">import</span> urlencode</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> <span class="bu">dict</span>(q<span class="op">=</span><span class="st">'Sausages'</span>, <span class="bu">format</span><span class="op">=</span><span class="st">'json'</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>handle <span class="op">=</span> urlopen(<span class="st">'http://api.duckduckgo.com'</span> <span class="op">+</span> <span class="st">'?'</span> <span class="op">+</span> urlencode(params))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>raw_text <span class="op">=</span> handle.read().decode(<span class="st">'utf8'</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>parsed <span class="op">=</span> json.loads(raw_text)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> parsed[<span class="st">'RelatedTopics'</span>]</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> results:</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'Text'</span> <span class="kw">in</span> r:</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(r[<span class="st">'FirstURL'</span>] <span class="op">+</span> <span class="st">' - '</span> <span class="op">+</span> r[<span class="st">'Text'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>https://duckduckgo.com/Sausage - Sausage A type of meat product usually made from ground meat-often pork, beef, or poultry—along with...
-https://duckduckgo.com/Sausage_(band) - Sausage (band) A short-lived alternative/funk rock band featuring a reunion of the 1988 lineup of the San...
-https://duckduckgo.com/Sausage_Software - Sausage Software An Australian software company, founded by entrepreneur Steve Outtrim, which produced one of the...
-https://duckduckgo.com/dachshund - Sausage dog A German breed of short-legged, long-bodied dog of hound type.
-https://duckduckgo.com/Sausage_Galaxy - Sausage Galaxy A former dwarf galaxy that accreted in a violent collision into the Milky Way.
-https://duckduckgo.com/The_Sausages_of_Babel - "The Sausages of Babel " A Dutch TV-presenting trio.
-https://duckduckgo.com/Baboon_(band) - Sausage (album) An American rock band originally from Denton, Texas. The band formed in 1991.</code></pre>
-</div>
-</div>
-<p>Requests</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> <span class="bu">dict</span>(q<span class="op">=</span><span class="st">'Sausages'</span>, <span class="bu">format</span><span class="op">=</span><span class="st">'json'</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>parsed <span class="op">=</span> requests.get(<span class="st">'http://api.duckduckgo.com/'</span>, params<span class="op">=</span>params).json()</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> parsed[<span class="st">'RelatedTopics'</span>]</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> results:</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'Text'</span> <span class="kw">in</span> r:</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(r[<span class="st">'FirstURL'</span>] <span class="op">+</span> <span class="st">' - '</span> <span class="op">+</span> r[<span class="st">'Text'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>DuckDuckGo module</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> duckduckgo</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> duckduckgo.query(<span class="st">'Sausages'</span>).results:</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(r.url <span class="op">+</span> <span class="st">' - '</span> <span class="op">+</span> r.text)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>All three examples do the same thing, but the first one is more less-readable and requires more knowledge about how to use the API.</p>
+<section id="applying-the-dip-to-data-access" class="level2">
+<h2 class="anchored" data-anchor-id="applying-the-dip-to-data-access">Applying the DIP to data access</h2>
+<p>The objective is to keep the layers separate, and to have each layer depend only on the one below it, not between modules of the same level.</p>
+<p>But we want our domain model to have no dependencies whatsoever and only accepting helper libraries.</p>
+<p><strong>ONION ARCHITECTURE</strong></p>
 </section>
-<section id="layering" class="level3">
-<h3 class="anchored" data-anchor-id="layering">Layering</h3>
-<p>In software engineering we should care the interactions between objects and functions. Avoid dependecies between them. We can achieve this by layering our code. The idea is to have a layer of objects and functions that are independent of each other, and then have rules for how the layers can interact with each other. This way, we can change one layer without affecting the others.</p>
+<section id="model-depends-on-orm" class="level2">
+<h2 class="anchored" data-anchor-id="model-depends-on-orm">Model depends on ORM</h2>
+<p>The frameworks that help to generate SQL for you based on your model objects are called <strong>object-realtional mappers.</strong></p>
+<p>Our domain model doesn’t need to know anything about the way the data is persisted and loaded, in other word it allow us to have persistence ignorance.</p>
+<p>Note: We will be using SQLAlchemy.</p>
+<p>How we can say that our model is ignorant of the database if it is directly coupled to database columns?</p>
 </section>
-<section id="the-dependency-inversion-principle" class="level3">
-<h3 class="anchored" data-anchor-id="the-dependency-inversion-principle">The Dependency Inversion Principle</h3>
-<p>The Dependency Inversion Principle states that high-level modules should not depend on low-level modules. Both should depend on abstractions. Additionally, abstractions should not depend on details. Details should depend on abstractions (What does this mean?). For a further understanding of this principle, we can look at the SOLID principles.</p>
-<p>High-level modules are those that contain complex logic and are responsible for the overall behavior of the system <strong>(in other words, they are the important ones in ultimate instance and refer to the real-world concepts)</strong>.</p>
-<p>Low-level modules are those that contain simple logic and are responsible for specific tasks. They are not intesting in themselves, but they are important in other ways because they provide the building blocks for the high-level modules and because they are susceptible to optimization.</p>
-<p>Depends on refers to an idea that one module knows about or needs to know about another module.</p>
-<p>High-level modules should be easy to modify in response to business requirements. Low-level modules should be easy to modify in response to changes in technology or other external factors. Though, in practice, low-level are harder to change. #### Note:</p>
-<p>SOLID is an acronym for five principles of object-oriented programming and design. The Dependency Inversion Principle is one of them. (See the SOLID appendix for more information.)</p>
+<section id="introducing-the-repository-pattern" class="level2">
+<h2 class="anchored" data-anchor-id="introducing-the-repository-pattern">Introducing the repository pattern</h2>
+<p>It pretends that all of our data is in memory.</p>
 </section>
+<section id="the-repository-in-the-abstract" class="level2">
+<h2 class="anchored" data-anchor-id="the-repository-in-the-abstract">The repository in the abstract</h2>
+<p>The simplest repo has only two methods: add and delete.</p>
+</section>
+<section id="what-is-the-trade-off" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-trade-off">What is the trade-off?</h2>
+<p>We will have to write a few lines of code in our repository class each time we add a new domain object that we want to retriev, but in return we get a simple abstraction over our storage layer, which we control.</p>
+<section id="integration-test" class="level3">
+<h3 class="anchored" data-anchor-id="integration-test">Integration test</h3>
+<p>We will be checking that our code is correctly integrated with the database.</p>
+</section>
+</section>
+<section id="what-is-a-port-and-what-is-an-adapter" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-port-and-what-is-an-adapter">What is a port and what is an adapter?</h2>
 </section>
 
 </main>
