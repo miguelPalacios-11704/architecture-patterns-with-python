@@ -1,0 +1,9 @@
+---
+    title: "Chapter 3: Our first use case"
+    author: Miguel de Jesús Palacios Rivera
+    format: html
+---
+
+![The state of the app with repository and domain model](img/repo-and-domain.png)
+
+We will be discussing the differences between orchestration logic, business logic, and interfacing code. We will introduce the service layer 
