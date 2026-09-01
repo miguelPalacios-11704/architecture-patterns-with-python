@@ -129,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Encapsulation is interwoven with two ideas: simplifying behavior and hiding data. In this context, we are referring to the first idea. We need to rememeber that at the moment of coding this means to give tasks to a well-defined object or function.</p>
 <p>We have three differnt levels of abstraction in the following example:</p>
 <p>Urlib</p>
-<div id="57f2f979" class="cell" data-execution_count="1">
+<div id="8014716e" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib.request <span class="im">import</span> urlopen</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib.parse <span class="im">import</span> urlencode</span>
@@ -171,8 +171,11 @@ https://duckduckgo.com/Baboon_(band) - Sausage (album) An American rock band ori
 </section>
 <section id="the-dependency-inversion-principle" class="level3">
 <h3 class="anchored" data-anchor-id="the-dependency-inversion-principle">The Dependency Inversion Principle</h3>
-<p>The Dependency Inversion Principle states that high-level modules should not depend on low-level modules. Both should depend on abstractions. Additionally, abstractions should not depend on details. Details should depend on abstractions.</p>
-<p>High-level modules are those that contain complex logic and are responsible for the overall behavior of the system <strong>(in other words, they are the important ones in ultimate instance and refere to the real-world concepts)</strong>. Low-level modules are those that contain simple logic and are responsible for specific tasks.</p>
+<p>The Dependency Inversion Principle states that high-level modules should not depend on low-level modules. Both should depend on abstractions. Additionally, abstractions should not depend on details. Details should depend on abstractions (What does this mean?). For a further understanding of this principle, we can look at the SOLID principles.</p>
+<p>High-level modules are those that contain complex logic and are responsible for the overall behavior of the system <strong>(in other words, they are the important ones in ultimate instance and refer to the real-world concepts)</strong>.</p>
+<p>Low-level modules are those that contain simple logic and are responsible for specific tasks. They are not intesting in themselves, but they are important in other ways because they provide the building blocks for the high-level modules and because they are susceptible to optimization.</p>
+<p>Depends on refers to an idea that one module knows about or needs to know about another module.</p>
+<p>High-level modules should be easy to modify in response to business requirements. Low-level modules should be easy to modify in response to changes in technology or other external factors. Though, in practice, low-level are harder to change.</p>
 <section id="note" class="level4">
 <h4 class="anchored" data-anchor-id="note">Note:</h4>
 <p>SOLID is an acronym for five principles of object-oriented programming and design. The Dependency Inversion Principle is one of them. (See the SOLID appendix for more information.)</p>

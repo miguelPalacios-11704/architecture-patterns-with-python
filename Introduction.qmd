@@ -74,6 +74,7 @@ Low-level modules are those that contain simple logic and are responsible for sp
 Depends on refers to an idea that one module knows about or needs to know about another module.
 
 High-level modules should be easy to modify in response to business requirements. Low-level modules should be easy to modify in response to changes in technology or other external factors. Though, in practice, low-level are harder to change.
+
 #### Note:
 
 SOLID is an acronym for five principles of object-oriented programming and design. The Dependency Inversion Principle is one of them. (See the SOLID appendix for more information.)
